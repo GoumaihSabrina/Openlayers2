@@ -1,5 +1,7 @@
 function init() {
+
   let popup = document.getElementById('popup');
+  let closer = document.getElementById('popup-closer');
   let searchInput = document.getElementById('search');
 
   var iconStyle = new ol.style.Style({
@@ -73,13 +75,16 @@ function init() {
 
   map.on('click', function(evt) {
     var features = map.getFeaturesAtPixel(evt.pixel);
-    if (features) {
+    if (features && features.length > 0) {
+    
         var coordinate = features[0].getGeometry().getCoordinates();
-        content.innerHTML = '';
+        popup.innerHTML ='Coordinate'+ coordinate;
         overlay.setPosition(coordinate);
+       
     } else {
         overlay.setPosition(undefined);
-        closer.blur();
+        
     }
+    
   });
 }
