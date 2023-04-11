@@ -1,5 +1,4 @@
 function init() {
-
   let popup = document.getElementById('popup');
   let closer = document.getElementById('popup-closer');
   let searchInput = document.getElementById('search');
@@ -17,13 +16,12 @@ function init() {
       features: []
     }),
     style: iconStyle
-
   });
 
   var overlay = new ol.Overlay({
-    content: popup,
+    element: popup,
     positioning: 'bottom-center',
-    autopan: true,
+    autoPan: true,
     autoPanAnimation: {
       duration: 250
     }
@@ -37,7 +35,7 @@ function init() {
       }),
       markerLayer
     ],
-    overlay: [overlay],
+    overlays: [overlay],
     view: new ol.View({
       center: ol.proj.fromLonLat([11.555655151565931, 45.552099360953925]),
       zoom: 18
@@ -50,6 +48,7 @@ function init() {
 
       var address = searchInput.value;
       var url = 'https://nominatim.openstreetmap.org/search/' + encodeURIComponent(address) + '?format=json&addressdetails=1&limit=1&polygon_svg=1';
+
       fetch(url)
         .then(risposta => risposta.json())
         .then(function(data) {
@@ -60,10 +59,10 @@ function init() {
             overlay.setPosition(coords);
             map.getView().animate({center: coords, zoom: 18});
 
-  
             var marker = new ol.Feature({
               geometry: new ol.geom.Point(coords)
             });
+
             markerLayer.getSource().addFeature(marker);
           } else {
             alert('Indirizzo non trovato');
@@ -75,16 +74,16 @@ function init() {
 
   map.on('click', function(evt) {
     var features = map.getFeaturesAtPixel(evt.pixel);
+  
     if (features && features.length > 0) {
-    
-        var coordinate = features[0].getGeometry().getCoordinates();
-        popup.innerHTML ='Coordinate'+ coordinate;
-        overlay.setPosition(coordinate);
-       
+      var coordinate = features[0].getGeometry().getCoordinates();
+      var nome = features[0].get('name'); 
+      popup.innerHTML = `name: ${nome}`;; 
+      overlay.setPosition(coordinate);
     } else {
-        overlay.setPosition(undefined);
-        
+      overlay.setPosition(undefined);
     }
-    
   });
 }
+
+
