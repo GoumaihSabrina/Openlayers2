@@ -79,7 +79,7 @@ function init() {
       var coordinate = features[0].getGeometry().getCoordinates();
       var nome = document.getElementById('name').value;
       var indirizzo = document.getElementById('search').value;
-      popup.innerHTML = 'Nome: ' + nome + 'indirizzo:' + indirizzo;;
+      popup.innerHTML = 'Nome: ' + nome + ' ' + 'indirizzo:' + indirizzo;;
       overlay.setPosition(map.getView().getCenter());
     } else {
       overlay.setPosition(undefined);
