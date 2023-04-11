@@ -78,7 +78,8 @@ function init() {
     if (features && features.length > 0) {
       var coordinate = features[0].getGeometry().getCoordinates();
       var nome = document.getElementById('name').value;
-      popup.innerHTML = 'Nome: ' + nome;
+      var indirizzo = document.getElementById('search').value;
+      popup.innerHTML = 'Nome: ' + nome + 'indirizzo:' + indirizzo;;
       overlay.setPosition(map.getView().getCenter());
     } else {
       overlay.setPosition(undefined);
