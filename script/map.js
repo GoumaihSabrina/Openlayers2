@@ -77,9 +77,9 @@ function init() {
   
     if (features && features.length > 0) {
       var coordinate = features[0].getGeometry().getCoordinates();
-      var nome = features[0].get('name'); 
-      popup.innerHTML = `name: ${nome}`;; 
-      overlay.setPosition(coordinate);
+      var nome = document.getElementById('name').value;
+      popup.innerHTML = 'Nome: ' + nome;
+      overlay.setPosition(map.getView().getCenter());
     } else {
       overlay.setPosition(undefined);
     }
